@@ -22,3 +22,19 @@ spec:
             requests:
               memory: "50Mi"
               cpu: "10m"
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: ai2aap-config-secret
+data:
+  AAP_URL: RklMTF9ZT1VSX1ZBTFVF
+  AAP_PASS: RklMTF9ZT1VSX1ZBTFVF
+  SNOW_USER: RklMTF9ZT1VSX1ZBTFVF
+  ML_WS_URL: RklMTF9ZT1VSX1ZBTFVF
+  SNOW_PASS: RklMTF9ZT1VSX1ZBTFVF
+  SNOW_ASSIGNED_TO: RklMTF9ZT1VSX1ZBTFVF
+  SNOW_URL: RklMTF9ZT1VSX1ZBTFVF
+  AAP_USER: RklMTF9ZT1VSX1ZBTFVF
+  AAP_WF_ID: RklMTF9ZT1VSX1ZBTFVF
+type: Opaque
