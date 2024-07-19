@@ -1,0 +1,21 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ai2app-snow-incidents-resolution
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+        - name: ai2app-snow-incidents-resolution
+          image: python-image:latest
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "10m"
