@@ -33,6 +33,9 @@ components:
       deployment/memoryRequest: 50Mi
     kubernetes:
       uri: deploy.yaml
+  - name: kubernetes-secret
+    kubernetes:
+      uri: secret.yaml
 commands:
   - id: build-image
     apply:

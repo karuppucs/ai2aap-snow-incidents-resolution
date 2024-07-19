@@ -15,6 +15,9 @@ spec:
       containers:
         - name: ai2app-snow-incidents-resolution
           image: python-image:latest
+          envFrom:
+            - secretRef:
+                name: ai2aap-config-secret
           resources:
             requests:
               memory: "50Mi"
