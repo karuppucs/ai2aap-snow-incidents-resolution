@@ -27,7 +27,7 @@ components:
         buildContext: .
         rootRequired: false
   - name: kubernetes-deploy
-    kubernetes:
+    openshift:
       uri: ./deploy.yaml
 commands:
   - id: build-image
