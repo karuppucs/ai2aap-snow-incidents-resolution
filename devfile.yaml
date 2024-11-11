@@ -28,7 +28,7 @@ components:
         rootRequired: false
   - name: kubernetes-deploy
     kubernetes:
-      uri: deploy.yaml
+      uri: ./deploy.yaml
 commands:
   - id: build-image
     apply:
