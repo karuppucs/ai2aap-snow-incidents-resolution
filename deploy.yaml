@@ -1,42 +1,40 @@
-apiVersion: v1
-kind: List
-items:
-  - kind: Deployment
-    apiVersion: apps/v1
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ai2app-snow-incidents-resolution
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
     metadata:
-      name: ai2app-snow-incidents-resolution
+      labels:
+        app: python-app
     spec:
-      replicas: 1
-      selector:
-        matchLabels:
-          app: python-app
-      template:
-        metadata:
-          labels:
-            app: python-app
-        spec:
-          containers:
-            - name: ai2app-snow-incidents-resolution
-              image: python-image:latest
-              envFrom:
-                - secretRef:
-                    name: ai2aap-config-secret
-              resources:
-                requests:
-                  memory: "50Mi"
-                  cpu: "10m"
-  - kind: Secret
-    apiVersion: v1
-    metadata:
-      name: ai2aap-config-secret
-    data:
-      AAP_URL: RklMTF9ZT1VSX1ZBTFVF
-      AAP_PASS: RklMTF9ZT1VSX1ZBTFVF
-      SNOW_USER: RklMTF9ZT1VSX1ZBTFVF
-      ML_WS_URL: RklMTF9ZT1VSX1ZBTFVF
-      SNOW_PASS: RklMTF9ZT1VSX1ZBTFVF
-      SNOW_ASSIGNED_TO: RklMTF9ZT1VSX1ZBTFVF
-      SNOW_URL: RklMTF9ZT1VSX1ZBTFVF
-      AAP_USER: RklMTF9ZT1VSX1ZBTFVF
-      AAP_WF_ID: RklMTF9ZT1VSX1ZBTFVF
-    type: Opaque
+      containers:
+        - name: ai2app-snow-incidents-resolution
+          image: python-image:latest
+          envFrom:
+            - secretRef:
+                name: ai2aap-config-secret
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "10m"
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: ai2aap-config-secret
+data:
+  AAP_URL: RklMTF9ZT1VSX1ZBTFVF
+  AAP_PASS: RklMTF9ZT1VSX1ZBTFVF
+  SNOW_USER: RklMTF9ZT1VSX1ZBTFVF
+  ML_WS_URL: RklMTF9ZT1VSX1ZBTFVF
+  SNOW_PASS: RklMTF9ZT1VSX1ZBTFVF
+  SNOW_ASSIGNED_TO: RklMTF9ZT1VSX1ZBTFVF
+  SNOW_URL: RklMTF9ZT1VSX1ZBTFVF
+  AAP_USER: RklMTF9ZT1VSX1ZBTFVF
+  AAP_WF_ID: RklMTF9ZT1VSX1ZBTFVF
+type: Opaque
