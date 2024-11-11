@@ -27,10 +27,6 @@ components:
         buildContext: .
         rootRequired: false
   - name: kubernetes-deploy
-    attributes:
-      deployment/replicas: 1
-      deployment/cpuRequest: 10m
-      deployment/memoryRequest: 50Mi
     kubernetes:
       uri: deploy.yaml
 commands:
