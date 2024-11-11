@@ -26,13 +26,19 @@ components:
         uri: docker/Dockerfile
         buildContext: .
         rootRequired: false
+  - name: kubernetes-secret
+    openshift:
+      uri: secret.yaml
   - name: kubernetes-deploy
     openshift:
-      uri: ./deploy.yaml
+      uri: deploy.yaml
 commands:
   - id: build-image
     apply:
       component: image-build
+  - id: createsecret
+    apply:
+      component: kubernetes-secret
   - id: deployk8s
     apply:
       component: kubernetes-deploy
@@ -40,6 +46,7 @@ commands:
     composite:
       commands:
         - build-image
+        - createsecret
         - deployk8s
       group:
         kind: deploy
