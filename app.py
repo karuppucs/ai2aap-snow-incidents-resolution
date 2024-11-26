@@ -93,7 +93,7 @@ def update_servicenow_incident(snow_url, snow_user, snow_pass, incident_sys_id, 
         print(f"Error updating incident: {response.status_code} - {response.text}")
         return False
 
-def aap_start_automation(aap_url, aap_user, aap_pass, snow_inc_number, category, host, workflow_template_id):
+def aap_start_automation(aap_url, aap_user, aap_pass, snow_url, snow_user, snow_pass, snow_inc_number, category, host, workflow_template_id):
     # Headers definition
     headers = {'Content-Type': 'application/json'}
 
@@ -101,7 +101,10 @@ def aap_start_automation(aap_url, aap_user, aap_pass, snow_inc_number, category,
     data = {}
     data["extra_vars"] = {
         "snow_inc_number": f"{snow_inc_number}",
-        "category": f"{category}"
+        "category": f"{category}",
+        "snow_instance": f"{snow_url}",
+        "snow_user": f"{snow_user}",
+        "snow_pass": f"{snow_pass}",
     }
     data["limit"] = f"{host}"
 
@@ -139,7 +142,7 @@ def check_and_update_tickets():
             snow_inc_category = response_dict['category']
             print("The ticket has been classified as: "+snow_inc_category)
             # Now it's time to call AAP passing the response_dict['category'] and response_dict['u_host']
-            aap_start_automation(aap_url, aap_user, aap_pass, snow_inc_number, snow_inc_category, snow_inc_host, workflow_template_id)
+            aap_start_automation(aap_url, aap_user, aap_pass, snow_url, snow_user, snow_pass, snow_inc_number, snow_inc_category, snow_inc_host, workflow_template_id)
             # Finally we can update the SNOW ticket
             success = update_servicenow_incident(snow_url, snow_user, snow_pass, incident['sys_id'], "2", assigned_to, work_notes+response_dict['category'])
             if success:
