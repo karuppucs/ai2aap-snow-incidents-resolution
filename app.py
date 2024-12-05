@@ -1,6 +1,8 @@
 #!/bin/python
 
 import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 import schedule
 import time
 import os
@@ -19,9 +21,11 @@ def get_servicenow_incidents(instance_url, username, password):
     
     url = f"{instance_url}/api/now/table/incident"
     headers = {"Accept": "application/json"}  # Specify JSON response
-
+    s = requests.Session()
+    retries = Retry(total=5, backoff_factor=1)
+    s.mount('http://', HTTPAdapter(max_retries=retries))
     try:
-        response = requests.get(url, auth=(username, password), headers=headers)
+        response = s.get(url, auth=(username, password), headers=headers)
     except Exception as e:
         print(f"Error: received exception connecting to the SNow instance {instance_url}")
         print(e)
