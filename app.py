@@ -23,7 +23,7 @@ def get_servicenow_incidents(instance_url, username, password):
     headers = {"Accept": "application/json"}  # Specify JSON response
     s = requests.Session()
     retries = Retry(total=5, connect=5, read=5, redirect=5, backoff_factor=2)
-    s.mount('http://', HTTPAdapter(max_retries=retries))
+    s.mount('https://', HTTPAdapter(max_retries=retries))
     try:
         response = s.get(url, auth=(username, password), headers=headers)
     except Exception as e:
@@ -92,7 +92,15 @@ def update_servicenow_incident(snow_url, snow_user, snow_pass, incident_sys_id, 
         "work_notes": work_notes
     }
 
-    response = requests.patch(url, auth=(snow_user, snow_pass), headers=headers, json=data)
+    s = requests.Session()
+    retries = Retry(total=5, connect=5, read=5, redirect=5, backoff_factor=2)
+    s.mount('https://', HTTPAdapter(max_retries=retries))
+    try:
+        response = s.patch(url, auth=(snow_user, snow_pass), headers=headers, json=data)
+    except Exception as e:
+        print(f"Error: received exception connecting to the SNow instance {instance_url}")
+        print(e)
+        return False
 
     if response.status_code == 200:
         print("Incident updated successfully!")
