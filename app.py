@@ -25,6 +25,7 @@ def get_servicenow_incidents(instance_url, username, password):
     except Exception as e:
         print(f"Error: received exception connecting to the SNow instance {instance_url}")
         print(e)
+        return []
     if response.status_code == 200:
         data = response.json()
         return data.get("result", [])  # Extract incident list or empty list if not found
