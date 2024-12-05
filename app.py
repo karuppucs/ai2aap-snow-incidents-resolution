@@ -22,7 +22,7 @@ def get_servicenow_incidents(instance_url, username, password):
     url = f"{instance_url}/api/now/table/incident"
     headers = {"Accept": "application/json"}  # Specify JSON response
     s = requests.Session()
-    retries = Retry(total=5, backoff_factor=1)
+    retries = Retry(total=5, connect=5, read=5, redirect=5, backoff_factor=2)
     s.mount('http://', HTTPAdapter(max_retries=retries))
     try:
         response = s.get(url, auth=(username, password), headers=headers)
