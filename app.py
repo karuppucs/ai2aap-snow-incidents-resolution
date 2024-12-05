@@ -70,7 +70,7 @@ def update_servicenow_incident(snow_url, snow_user, snow_pass, incident_sys_id, 
     """Updates a ServiceNow incident with new state, assignment, and work notes.
 
     Args:
-        instance_url (str): Your ServiceNow instance URL (e.g., "https://yourinstance.service-now.com")
+        snow_url (str): Your ServiceNow instance URL (e.g., "https://yourinstance.service-now.com")
         username (str): Your ServiceNow username
         password (str): Your ServiceNow password
         incident_sys_id (str): The sys_id of the incident to update
@@ -98,7 +98,7 @@ def update_servicenow_incident(snow_url, snow_user, snow_pass, incident_sys_id, 
     try:
         response = s.patch(url, auth=(snow_user, snow_pass), headers=headers, json=data)
     except Exception as e:
-        print(f"Error: received exception connecting to the SNow instance {instance_url}")
+        print(f"Error: received exception connecting to the SNow instance {snow_url}")
         print(e)
         return False
 
