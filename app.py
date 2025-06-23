@@ -152,6 +152,7 @@ def check_and_update_tickets():
             snow_inc_desc = incident['short_description']
             snow_inc_host = incident['u_host']
             print(f"Number: {snow_inc_number}, Description: {snow_inc_desc}, Host: {snow_inc_host}")
+            print(snow_inc_desc)
             print(webservice_url)
             response = post_text_to_webservice(snow_inc_desc, webservice_url)
             response_dict = response.json()
