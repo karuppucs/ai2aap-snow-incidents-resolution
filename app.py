@@ -155,6 +155,7 @@ def check_and_update_tickets():
             print(snow_inc_desc)
             print(webservice_url)
             response = post_text_to_webservice(snow_inc_desc, webservice_url)
+            print(response)
             response_dict = response.json()
             print(response_dict)
             snow_inc_category = response_dict['category']
