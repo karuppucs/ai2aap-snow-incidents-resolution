@@ -130,7 +130,8 @@ def aap_start_automation(aap_url, aap_base_path, aap_user, aap_pass, snow_url, s
         f"{aap_url}/{aap_base_path}/v2/workflow_job_templates/{workflow_template_id}/launch/",
         headers=headers,
         auth=(aap_user, aap_pass),
-        json=data
+        json=data,
+        verify=False
     )
 
     #print(launch_response.text)
