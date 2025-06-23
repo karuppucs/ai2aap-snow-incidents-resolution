@@ -155,6 +155,7 @@ def check_and_update_tickets():
             
             response = post_text_to_webservice(snow_inc_desc, webservice_url)
             response_dict = response.json()
+            print(response_dict)
             snow_inc_category = response_dict['category']
             print("The ticket has been classified as: "+snow_inc_category)
             # Now it's time to call AAP passing the response_dict['category'] and response_dict['u_host']
